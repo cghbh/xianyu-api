@@ -1,0 +1,49 @@
+{
+  "name": "xianyu-mobile-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development nodemon app",
+    "build": "cross-env NODE_ENV=production nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cghbh/xianyu-mobile-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cghbh/xianyu-mobile-api/issues"
+  },
+  "homepage": "https://github.com/cghbh/xianyu-mobile-api#readme",
+  "dependencies": {
+    "@alicloud/pop-core": "^1.7.10",
+    "@koa/cors": "^3.1.0",
+    "ali-oss": "^6.11.2",
+    "bcrypt": "^5.0.0",
+    "bluebird": "^3.7.2",
+    "cross-env": "^7.0.2",
+    "images": "^3.2.3",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-combine-routers": "^4.0.2",
+    "koa-helmet": "^6.0.0",
+    "koa-json-error": "^3.1.2",
+    "koa-jwt": "^4.0.0",
+    "koa-log4": "2",
+    "koa-logger": "^3.2.1",
+    "koa-parameter": "^3.0.1",
+    "koa-router": "^10.0.0",
+    "koa-static": "^5.0.0",
+    "koa2-multiparty": "^1.0.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.10.11",
+    "multer": "^1.4.2",
+    "multer-aliyun-oss": "^1.1.0",
+    "redis": "^3.0.2",
+    "svg-captcha": "^1.4.0"
+  }
+}
