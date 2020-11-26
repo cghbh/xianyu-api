@@ -3,11 +3,18 @@ const userModel = require('../models/users.js')
 const path = require('path')
 
 class DynamicController {
-  // 获取所有的动态列表，后面按照热度排名
+  // 根据字段确定是按照时间排序还是按照点赞量排序
+  // 0表示按照点赞量排序，1表示按照时间排序
   async dynamicList (ctx) {
-    const dynamics = await dynamicModel.find().sort({ createdAt: 'desc' }).populate('publisher')
+    const { sort = 0 } = ctx.query
+    let dynamics = []
+    if (sort === '0') {
+      dynamics = await dynamicModel.find().sort({ zan_number: 'desc' }).populate('publisher')
+    } else {
+       dynamics = await dynamicModel.find().sort({ createdAt: 'desc' }).populate('publisher')
+    }
     ctx.body = {
-      code: 200,
+      errno: 0,
       data: dynamics
     }
   }
@@ -17,7 +24,7 @@ class DynamicController {
     const dynamic = await dynamicModel.findById(ctx.params.id).populate('publisher')
     if (!dynamic) { ctx.throw(404, "动态不存在") }
     ctx.body = {
-      code: 200,
+      errno: 0,
       data: dynamic
     }
   }
@@ -32,14 +39,13 @@ class DynamicController {
     try {
       await new dynamicModel({...body, publisher: ctx.state.user._id }).save()
       ctx.body = {
-        code: 200,
-        msg: '发表成功'
+        errno: 0,
+        message: '发表成功'
       }
     } catch (err) {
       ctx.body = {
-        code: 400,
-        err,
-        msg: '发表失败'
+        errno: 1,
+        message: '发表失败'
       }
     }
   }
@@ -47,8 +53,8 @@ class DynamicController {
   // 上传动态的图片
   async dynamicImageUpload (ctx) {
     ctx.body = {
-      code: 200,
-      msg: '上传成功',
+      errno: 0,
+      message: '上传成功',
       data: ctx.state.img_url
     }
   }
@@ -71,8 +77,8 @@ class DynamicController {
   async deleteDynamic (ctx) {
     const data = await dynamicModel.findByIdAndRemove(ctx.params.id)
     ctx.body = {
-      code: 200,
-      msg: '删除成功'
+      errno: 0,
+      message: '删除成功'
     }
   }
   
@@ -81,14 +87,14 @@ class DynamicController {
     try {
       const users = await userModel.find({ likeDynamics: ctx.params.id })
       ctx.body = {
-        code: 200,
-        msg: '查询成功',
+        errno: 0,
+        message: '查询成功',
         data: users
       }
     } catch (err) {
       ctx.body = {
-        code: 400,
-        msg: '查询成功',
+        errno: 1,
+        message: '查询成功',
         data: err
       }
     }

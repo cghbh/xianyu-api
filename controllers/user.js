@@ -336,15 +336,15 @@ class UserController {
     try {
       const user = await userModel.findById(ctx.params.id).select('+likeDynamics').populate('likeDynamics')
       ctx.body = {
-        code: 200,
+        errno: 0,
         data: user.likeDynamics,
-        msg: '获取点赞列表成功'
+        message: '获取点赞列表成功'
       }
     } catch (err) {
       ctx.body = {
-        code: 400,
+        errno: 1,
         data: null,
-        msg: '获取点赞列表失败'
+        message: '获取点赞列表失败'
       }
     }
   }
@@ -362,14 +362,14 @@ class UserController {
       }
       const newDynamic = await dynamicModel.findById(ctx.params.id)
       ctx.body = {
-        code: 200,
-        msg: '点赞成功',
+        errno: 0,
+        message: '点赞成功',
         data: newDynamic
       }
     } catch (err) {
       ctx.body = {
-        code: 400,
-        msg: '点赞失败',
+        errno: 1,
+        message: '点赞失败',
         err
       }
     }
@@ -389,15 +389,14 @@ class UserController {
       }
       const newDynamic = await dynamicModel.findById(ctx.params.id)
       ctx.body = {
-        code: 200,
-        msg: '取消点赞成功',
+        errno: 0,
+        message: '取消点赞成功',
         data: newDynamic
       }
     } catch (err) {
       ctx.body = {
-        code: 400,
-        msg: '取消点赞失败',
-        err 
+        errno: 1,
+        message: '取消点赞失败'
       }
     }
   }
@@ -413,8 +412,8 @@ class UserController {
     }
     
     ctx.body = {
-      code: 200,
-      meg: '点赞成功'
+      errno: 0,
+      message: '点赞成功'
     }
   }
   
@@ -428,8 +427,8 @@ class UserController {
       await jokeModel.findByIdAndUpdate(ctx.params.id, { $inc: { zan_number: -1 } })
     }
     ctx.body = {
-      code: 200,
-      msg: '取消赞成功'
+      errno: 0,
+      message: '取消赞成功'
     }
   }
   
@@ -467,8 +466,8 @@ class UserController {
       await jokeModel.findByIdAndUpdate(ctx.params.id, { $inc: { collect_number: -1 } })
     }
     ctx.body = {
-      code: 200,
-      msg: '取消收藏成功'
+      errno: 0,
+      message: '取消收藏成功'
     }
   }
   
@@ -476,9 +475,9 @@ class UserController {
   async getCollectJokeById (ctx) {
     const user = await userModel.findById(ctx.params.id).select('+collectJokes').populate('collectJokes')
     ctx.body = {
-      code: 200,
+      errno: 0,
       data: user.collectJokes,
-      msg: '数据获取成功'
+      message: '数据获取成功'
     }
   }
   
@@ -491,8 +490,8 @@ class UserController {
       await poemModel.findByIdAndUpdate(ctx.params.id, { $inc: { zan_number: 1 } })
     }
     ctx.body = {
-      code: 200,
-      msg: '点赞成功'
+      errno: 0,
+      message: '点赞成功'
     }
   }
   
@@ -506,8 +505,8 @@ class UserController {
       await poemModel.findByIdAndUpdate(ctx.params.id, { $inc: { zan_number: -1 } })
     }
     ctx.body = {
-      code: 200,
-      msg: '取消点赞成功'
+      errno: 0,
+      message: '取消点赞成功'
     }
   }
   
@@ -520,8 +519,8 @@ class UserController {
       await poemModel.findByIdAndUpdate(ctx.params.id, { $inc: { collect_number: 1 } })
     }
     ctx.body = {
-      code: 200,
-      msg: '收藏成功'
+      errno: 0,
+      message: '收藏成功'
     }
   }
   
