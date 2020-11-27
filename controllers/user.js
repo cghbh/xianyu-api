@@ -52,6 +52,15 @@ class UserController {
     }
   }
 
+  // 根据用户登录的token返回用户的信息
+  async backUserInfoByToken (ctx) {
+    console.log(ctx.state.user)
+    const user = await userModel.findById(ctx.state.user._id)
+    ctx.body = {
+      errno: 0,
+      data: user
+    }
+  }
   // 用户更新操作
   async update(ctx) {
     // { new: true } 表示返回更新之后的数据
@@ -113,8 +122,7 @@ class UserController {
     ctx.body = {
       errno: 0,
       message: '登录成功',
-      token,
-      user: { personal_sign: user.personal_sign, nickname: user.nickname, _id: user._id, telephone: user.telephone ,avatar_url: user.avatar_url }
+      token
     }
   }
 
@@ -143,8 +151,7 @@ class UserController {
       ctx.body = {
         errno: 0,
         message: '登录成功',
-        token,
-        user
+        token
       }
     } else {
       ctx.body = {

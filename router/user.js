@@ -2,7 +2,7 @@ const Router = require('koa-router')
 const jwt = require('koa-jwt')
 const router = new Router()
 
-const { checkOwner, find, findById, update, deleteById, login, loginByTelephoneCode, findBackPassword, register, listFollowing, follow, unfollow, listFollowers, checkUserExist, getUserDynamicById, uploadUserAvatar, likeDynamics, unlikeDynamics, listLikeDynamics, likeJoke, unlikeJoke, getJokeByUserId, collectJoke, cancelCollectJoke, getCollectJokeById, likePoem, unlikePoem, collectPoem, cancelCollectPoem, getLikePomesByUserId, getCollectPoemsByUserId, likeWord, unlikeWord, cancelCollectWord, collectWord, getLikeWordsByUserId, getCollectWordsByUserId, likeArticle, unlikeArticle, collectArticle, cancelCollectArticle, getLikeArticlesByUserId, getCollectArticlesByUserId } = require('../controllers/user.js')
+const { checkOwner, find, findById, backUserInfoByToken, update, deleteById, login, loginByTelephoneCode, findBackPassword, register, listFollowing, follow, unfollow, listFollowers, checkUserExist, getUserDynamicById, uploadUserAvatar, likeDynamics, unlikeDynamics, listLikeDynamics, likeJoke, unlikeJoke, getJokeByUserId, collectJoke, cancelCollectJoke, getCollectJokeById, likePoem, unlikePoem, collectPoem, cancelCollectPoem, getLikePomesByUserId, getCollectPoemsByUserId, likeWord, unlikeWord, cancelCollectWord, collectWord, getLikeWordsByUserId, getCollectWordsByUserId, likeArticle, unlikeArticle, collectArticle, cancelCollectArticle, getLikeArticlesByUserId, getCollectArticlesByUserId } = require('../controllers/user.js')
 
 const { checkDynamicExist } = require('../controllers/dynamic.js')
 const { checkJokeExist } = require('../controllers/joke.js')
@@ -21,6 +21,8 @@ router.prefix('/users')
 
 // 获取所有的用户
 router.get('/', find)
+
+router.post('/', auth, backUserInfoByToken)
 
 // 根据id查询用户
 router.get('/:id', checkUserExist, findById)
