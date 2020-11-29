@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
-const config = require('./config.js')
+const config = require('../../secret.js')
 
 
 mongoose.connect(config.DB_URL_PROD, {  useNewUrlParser: true, useUnifiedTopology: true })
 
 // 连接成功
 mongoose.connection.on('connected', () => {
-  console.log('Mongoose connection open to ' + config.DB_URL)
+  console.log('Mongoose connection open to ' + config.DB_URL_PROD)
 })
 
 // 连接异常
