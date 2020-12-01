@@ -12,13 +12,13 @@ const poemSchema = new Schema({
   // 诗词的标题
   poem_title: { type: String, required: true },
   // 诗词的内容
-  poem_content: { type: String, required: true },
+  poem_content: { type: String, required: true, select: false },
   // 诗词的赏析
-  poem_appreciation: { type: String },
+  poem_appreciation: { type: String, select: false },
   // 点赞量
-  zan_number: { type: Number, default: 0 },
+  zan_number: { type: Number, default: 0, select: false },
   // 收藏量
-  collect_number: { type: Number, default: 0 }
+  collect_number: { type: Number, default: 0, select: false }
 })
 
 const poemModel = model('poem', poemSchema)
