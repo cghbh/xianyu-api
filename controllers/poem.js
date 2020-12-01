@@ -21,8 +21,7 @@ class PoemController {
   async listPoem (ctx) {
     const poems = await poemModel.find()
     ctx.body = {
-      code: 200,
-      msg: '获取数据成功',
+      errno: 0,
       data: poems
     }
   }
@@ -32,7 +31,7 @@ class PoemController {
     const poem = await poemModel.findById(ctx.params.id)
     if (!poem) { ctx.throw(404, '诗词不存在') }
     ctx.body = {
-      code: 200,
+      errno: 0,
       data: poem
     }
   }
@@ -56,8 +55,8 @@ class PoemController {
     const newPoem = new poemModel({publisher: ctx.state.user._id, ...body})
     await newPoem.save()
     ctx.body = {
-      code: 200,
-      msg: '添加成功',
+      errno: 0,
+      message: '添加成功',
       data: newPoem
     }
   }
@@ -67,14 +66,14 @@ class PoemController {
     try {
       const poem = await poemModel.findByIdAndUpdate(ctx.params.id, { ...ctx.request.body }, { new: true })
       ctx.body = {
-        code: 200,
-        msg: '更新成功',
+        errno: 0,
+        message: '更新成功',
         data: poem
       }
     } catch {
       ctx.body = {
-        code: 400,
-        msg: '更新失败'
+        errno: 1,
+        message: '更新失败'
       }
     }
   }
@@ -84,13 +83,13 @@ class PoemController {
     try {
       await poemModel.findByIdAndRemove(ctx.params.id)
       ctx.body = {
-        code: 200,
-        msg: '删除成功'
+        errno: 0,
+        message: '删除成功'
       }
     } catch (err) {
       ctx.body = {
-        code: 400,
-        msg: '删除失败'
+        errno: 1,
+        message: '删除失败'
       }
     }
   }
