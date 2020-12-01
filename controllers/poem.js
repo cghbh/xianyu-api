@@ -27,7 +27,7 @@ class PoemController {
     console.log(page, 'page')
     console.log(perPage, 'perPage')
     const allPoems = await poemModel.find()
-    const poems = await poemModel.find().limit(perPage).skip((page - 1) * perPage)
+    const poems = await poemModel.find().sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
     ctx.body = {
       errno: 0,
       data: poems,

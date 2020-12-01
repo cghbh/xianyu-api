@@ -18,8 +18,10 @@ const poemSchema = new Schema({
   // 点赞量
   zan_number: { type: Number, default: 0, select: false },
   // 收藏量
-  collect_number: { type: Number, default: 0, select: false }
-})
+  collect_number: { type: Number, default: 0, select: false },
+  // 隐藏更新时间
+  updatedAt: { type: Date, select: false }
+}, { timestamps: true })
 
 const poemModel = model('poem', poemSchema)
 
