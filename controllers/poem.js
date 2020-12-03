@@ -24,8 +24,6 @@ class PoemController {
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
-    console.log(page, 'page')
-    console.log(perPage, 'perPage')
     const allPoems = await poemModel.find()
     const poems = await poemModel.find().sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
     ctx.body = {
@@ -37,7 +35,7 @@ class PoemController {
   
   // 根据诗词的id返回诗词
   async listPoemById (ctx) {
-    const poem = await poemModel.findById(ctx.params.id)
+    const poem = await poemModel.findById(ctx.params.id).select('+poem_content +poem_appreciation +zan_number +collect_number')
     if (!poem) { ctx.throw(404, '诗词不存在') }
     ctx.body = {
       errno: 0,
