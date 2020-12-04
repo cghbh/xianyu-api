@@ -17,10 +17,17 @@ class WordController {
   
   // 返回所有的成语
   async listWords (ctx) {
-    const words = await wordModel.find()
+    // 默认每页展示20条数据
+    const { perpage = 20 } = ctx.query
+    const perPage = Math.max(perpage * 1, 1)
+    // 默认从第一页开始
+    const page = Math.max(ctx.query.current_page * 1, 1)
+    const words = await wordModel.find().limit(perPage).skip((page - 1) * perPage)
+    const allWords = await wordModel.find()
     ctx.body = {
       errno: 0,
-      data: words
+      data: words,
+      total: allWords.length
     }
   }
   
