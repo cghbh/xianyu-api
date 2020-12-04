@@ -19,30 +19,36 @@ const wordSchema = new Schema({
   // 成语的意思
   word_meaning: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   // 成语的拼音
   word_pinyin: {
-    type: String
+    type: String,
+    select: false
   },
   // 成语的出处
   word_birth: {
     type: String,
-    required: false
+    required: false,
+    select: false
   },
   // 成语故事
   word_story: {
-    type: String
+    type: String,
+    select: false
   },
   // 点赞量
   zan_number: {
     type: Number,
-    default: 0
+    default: 0,
+    select: false
   },
   // 收藏量
   collect_number: {
     type: Number,
-    default: 0
+    default: 0,
+    select: false
   }
 }, { timestamps: true })
 
