@@ -3,10 +3,19 @@ const articleModel = require('../models/article.js')
 class ArticleController {
   // 返回所有的文章
   async listArticles (ctx) {
-    const articles = await articleModel.find()
+    // 默认每页展示20页
+    const { perpage = 20 } = ctx.query
+    const perPage = Math.max(perpage * 1, 1)
+    // 默认从第一页开始
+    const page = Math.max(ctx.query.current_page * 1, 1)
+    // const allPoems = await poemModel.find()
+    // const poems = await poemModel.find().sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
+    const articles = await articleModel.find().limit(perPage).skip((page - 1) * perPage)
+    const allArticles = await articleModel.find()
     ctx.body = {
       errno: 0,
-      data: articles
+      data: articles,
+      total: allArticles.length
     }
   }
   

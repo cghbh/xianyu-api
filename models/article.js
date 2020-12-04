@@ -26,7 +26,12 @@ const articleSchema = new Schema({
   // 文章的内容
   article_content: {
     type: String,
-    required: true
+    required: true,
+    select: false
+  },
+  // 文章的简短介绍
+  article_introduce: {
+    type: String
   },
   // 文章配图
   article_image: {
@@ -36,12 +41,14 @@ const articleSchema = new Schema({
   // 文章的点赞量
   zan_number:{
     type: Number,
-    default: 0
+    default: 0,
+    select: false
   },
   // 文章的收藏量
   collect_number: {
     type: Number,
-    default: 0
+    default: 0,
+    select: false
   }
 }, { timestamps: true })
 

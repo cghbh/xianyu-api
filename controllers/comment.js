@@ -10,7 +10,7 @@ class CommentController {
     console.log(root_comment_id, '根节点id')
     const comments = await commentModel.find({ dynamic_id, root_comment_id }).populate('commentator reply_to')
     ctx.body = {
-      code: 200,
+      errno: 0,
       data: comments
     }
   }
@@ -36,15 +36,14 @@ class CommentController {
       const comment = new commentModel({ commentator, dynamic_id, ...body })
       await comment.save()
       ctx.body = {
-        code: 200,
-        msg: '评论成功'
+        errno: 0,
+        message: '评论成功'
       }
     } catch (err) {
       console.log(err, 'err')
       ctx.body = {
-        code: 400,
-        msg:'评论失败',
-        err
+        errno: 1,
+        message:'评论失败'
       }
     }
   }

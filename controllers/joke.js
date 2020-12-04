@@ -6,7 +6,7 @@ class JokeController {
   async jokeList (ctx) {
     const jokes = await jokeModel.find().select('+publisher')
     ctx.body = {
-      code: 200,
+      errno: 0,
       data: jokes
     }
   }
@@ -48,8 +48,8 @@ class JokeController {
     })
     await joke.save()
     ctx.body = {
-      code: 200,
-      msg: '创建成功'
+      errno: 0,
+      message: '创建成功'
     }
   }
   
@@ -57,8 +57,8 @@ class JokeController {
   async deleteJokeById (ctx) {
     await jokeModel.findByIdAndRemove(ctx.params.id)
     ctx.body = {
-      code: 200,
-      msg: '删除成功'
+      errno: 0,
+      message: '删除成功'
     }
   }
   
@@ -66,8 +66,8 @@ class JokeController {
   async editJokeById (ctx) {
     const joke = await jokeModel.findByIdAndUpdate(ctx.params.id, { ...ctx.request.body })
     ctx.body = {
-      code: 200,
-      msg: '修改成功'
+      errno: 0,
+      message: '修改成功'
     }
   }
   
@@ -78,7 +78,7 @@ class JokeController {
     const randomIndex = Math.floor(Math.random() * length)
     
     ctx.body = {
-      code: 200,
+      errno: 0,
       data: jokes[randomIndex]
     }
   }

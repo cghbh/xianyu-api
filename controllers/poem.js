@@ -19,8 +19,8 @@ class PoemController {
   
   // 返回所有的诗词
   async listPoem (ctx) {
-    // 默认每页展示10条数据
-    const { perpage = 10 } = ctx.query
+    // 默认每页展示20条数据
+    const { perpage = 20 } = ctx.query
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
@@ -29,7 +29,7 @@ class PoemController {
     ctx.body = {
       errno: 0,
       data: poems,
-      totalPage: allPoems.length
+      total: allPoems.length
     }
   }
   
