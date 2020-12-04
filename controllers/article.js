@@ -8,8 +8,6 @@ class ArticleController {
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
-    // const allPoems = await poemModel.find()
-    // const poems = await poemModel.find().sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
     const articles = await articleModel.find().limit(perPage).skip((page - 1) * perPage)
     const allArticles = await articleModel.find()
     ctx.body = {
@@ -21,7 +19,7 @@ class ArticleController {
   
   // 根据文章的id返回指定的文章
   async listArticleById (ctx) {
-    const article = await articleModel.findById(ctx.params.id)
+    const article = await articleModel.findById(ctx.params.id).select('+article_content +collect_number +zan_number')
     ctx.body = {
       errno: 0,
       data: article

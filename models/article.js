@@ -44,6 +44,10 @@ const articleSchema = new Schema({
     default: 0,
     select: false
   },
+  updatedAt: {
+    type: Date,
+    select: false
+  },
   // 文章的收藏量
   collect_number: {
     type: Number,
