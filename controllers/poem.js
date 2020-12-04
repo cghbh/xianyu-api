@@ -56,8 +56,7 @@ class PoemController {
       poem_title: { type: 'string', required: true },
       poem_author: { type: 'string', required: true },
       author_dynasty: { type: 'string', required: false },
-      poem_content: { type: 'string', required: true },
-      poem_appreciation: { type: 'string', required: false }
+      poem_content: { type: 'string', required: true }
     })
     const newPoem = new poemModel({publisher: ctx.state.user._id, ...body})
     await newPoem.save()
