@@ -33,7 +33,7 @@ class WordController {
   
   // 根据成语的id返回成语的详细内容
   async listWordById (ctx) {
-    const word = await wordModel.findById(ctx.params.id)
+    const word = await wordModel.findById(ctx.params.id).select('+word_meaning +word_pinyin +word_birth +word_story +zan_number +collect_number')
     ctx.body = {
       errno: 0,
       data: word,
