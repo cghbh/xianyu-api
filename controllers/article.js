@@ -19,7 +19,7 @@ class ArticleController {
   
   // 根据文章的id返回指定的文章
   async listArticleById (ctx) {
-    const article = await articleModel.findById(ctx.params.id).select('+article_content +collect_number +zan_number')
+    const article = await articleModel.findById(ctx.params.id).select('+article_content +collect_number +zan_number -article_introduce')
     ctx.body = {
       errno: 0,
       data: article
