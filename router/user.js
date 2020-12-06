@@ -22,6 +22,7 @@ router.prefix('/users')
 // 获取所有的用户
 router.get('/', find)
 
+// 根据登录的token返回用户信息
 router.post('/', auth, backUserInfoByToken)
 
 // 根据id查询用户
