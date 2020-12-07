@@ -12,7 +12,7 @@ router.prefix('/jokes')
 router.get('/', jokeList)
 
 // 随机返回一个段子
-router.get('/random', randomGetJoke)
+router.post('/random', randomGetJoke)
 
 // 根据id返回段子
 router.get('/:id', checkJokeExist, getJokeById)
