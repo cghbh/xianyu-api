@@ -1,7 +1,7 @@
 const Router = require('koa-router')
 const jwt = require('koa-jwt')
 const router = new Router()
-const { uploadAricleImage, addArticle, listArticles, checkArticleExist, listArticleById, checkArticleOwner, editArticle, deleteArticle } = require('../controllers/article.js')
+const { uploadAricleImage, addArticle, listArticles, checkArticleExist, listArticleById, checkArticleOwner, editArticle, deleteArticle, getHotArticle } = require('../controllers/article.js')
 const config = require('../../secret.js')
 
 const auth = jwt({ secret: config.JWT_SECRET })
@@ -22,6 +22,9 @@ router.post('/upload', auth, uploadimg, uploadAricleImage)
 
 // 添加文章
 router.post('/', auth, addArticle)
+
+// 获取热门文章
+router.post('/hot', getHotArticle)
 
 // 编辑文章
 router.patch('/:id', auth,  checkArticleExist, checkArticleOwner, editArticle)

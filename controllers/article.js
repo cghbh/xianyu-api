@@ -90,6 +90,14 @@ class ArticleController {
       message: '删除成功'
     }
   }
+  
+  async getHotArticle (ctx) {
+    const articles = await articleModel.find().sort({ zan_number: 'desc' })
+    ctx.body = {
+      errno: 0,
+      data: articles.splice(0, 10)
+    }
+  }
 }
 
 module.exports = new ArticleController()
