@@ -92,7 +92,7 @@ class ArticleController {
   }
   
   async getHotArticle (ctx) {
-    const articles = await articleModel.find().select('+zan_number').sort({ zan_number: 'desc' })
+    const articles = await articleModel.find().select('+zan_number -article_author -article_image -article_introduce -createdAt').sort({ zan_number: 'desc' })
     ctx.body = {
       errno: 0,
       data: articles.splice(0, 10)
