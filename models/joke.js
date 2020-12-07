@@ -7,7 +7,7 @@ const jokeSchema = new Schema({
   publisher: { type: Schema.Types.ObjectId, ref: 'user', select: false },
   // 内容
   content: { type: String },
-  updatedAt: { type: Date, select: false, }
+  updatedAt: { type: Date, select: false },
   // 点赞的数量
   zan_number: { type: Number, default: 0 },
   // 收藏的数量
