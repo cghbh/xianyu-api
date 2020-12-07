@@ -3,7 +3,7 @@ const swiperModel = require('../models/swiper.js')
 class SwiperController {
   // 获取所有的轮播图
   async swiperList (ctx) {
-    const swipers = await swiperModel.find().sort({ updatedAt: -1 })
+    const swipers = await swiperModel.find().sort({ createdAt: 'desc' })
     ctx.body = {
       errno: 0,
       data: swipers

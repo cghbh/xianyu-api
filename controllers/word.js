@@ -22,7 +22,7 @@ class WordController {
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
-    const words = await wordModel.find().limit(perPage).skip((page - 1) * perPage)
+    const words = await wordModel.find().sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
     const allWords = await wordModel.find()
     ctx.body = {
       errno: 0,
