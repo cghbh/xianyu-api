@@ -20,9 +20,13 @@ const subjectSchema = new Schema({
     type: String,
     required: true
   },
+  updatedAt: {
+    type: Date,
+    select: false
+  },
   // 问题的选项
   question_options: {
-    type: [{ option_id: { type: String }, option_title: { type: String } }],
+    type: [{ option: { type: String }, option_title: { type: String } }],
     required: true
   }
 }, { timestamps: true })
