@@ -69,6 +69,14 @@ class SubjectController {
       question_answer: { type: 'string', required: true }
     })
     const { body } = ctx.request
+    // 先判断题目是否存在
+    const oldSubject = subjectModel.findOne({ question_title: body.question_title })
+    if (oldSubject) {
+      return ctx.body = {
+        errno: 1,
+        message: '该题目已存在，请勿重复添加！'
+      }
+    }
     const subject = new subjectModel({ publisher: ctx.state.user._id, question_title: body.question_title, question_answer: body.question_answer, question_options: [{option: 'A', option_title: body.option_a }, {option: 'B', option_title: body.option_b }, {option: 'C', option_title: body.option_c }, {option: 'D', option_title: body.option_d }] })
     await subject.save()
     ctx.body = {
