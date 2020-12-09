@@ -26,7 +26,7 @@ class PoemController {
     const page = Math.max(ctx.query.current_page * 1, 1)
     // 分组正则查询
     const q = new RegExp(ctx.query.q)
-    const allPoems = await poemModel.find()
+    const allPoems = await poemModel.find({ $or: [{ poem_author: q }, { author_dynasty: q }, { poem_title: q }] })
     const poems = await poemModel.find({ $or: [{ poem_author: q }, { author_dynasty: q }, { poem_title: q }] }).sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
     ctx.body = {
       errno: 0,

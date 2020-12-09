@@ -29,10 +29,12 @@ class UserController {
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
+    const allUsers = await userModel.find({ nickname: new RegExp(ctx.query.q) })
     const users = await userModel.find({ nickname: new RegExp(ctx.query.q) }).limit(perPage).skip((page - 1) * perPage)
     ctx.body = {
       errno: 0,
-      data: users
+      data: users,
+      total: allUsers.length
     }
   }
 

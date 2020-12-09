@@ -23,7 +23,7 @@ class WordController {
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
     const words = await wordModel.find({ word_title: new RegExp(ctx.query.q) }).sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
-    const allWords = await wordModel.find()
+    const allWords = await wordModel.find({ word_title: new RegExp(ctx.query.q) })
     ctx.body = {
       errno: 0,
       data: words,

@@ -11,7 +11,7 @@ class ArticleController {
     // 分组正则匹配
     const q = new RegExp(ctx.query.q)
     const articles = await articleModel.find({ $or: [{ article_title: q }, { article_author: q }, { article_introduce: q }] }).sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
-    const allArticles = await articleModel.find()
+    const allArticles = await articleModel.find({ $or: [{ article_title: q }, { article_author: q }, { article_introduce: q }] })
     ctx.body = {
       errno: 0,
       data: articles,
