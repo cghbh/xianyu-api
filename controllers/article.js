@@ -8,7 +8,9 @@ class ArticleController {
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
-    const articles = await articleModel.find().sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
+    // 分组正则匹配
+    const q = new RegExp(ctx.query.q)
+    const articles = await articleModel.find({ $or: [{ article_title: q }, { article_author: q }, { article_introduce: q }] }).sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
     const allArticles = await articleModel.find()
     ctx.body = {
       errno: 0,

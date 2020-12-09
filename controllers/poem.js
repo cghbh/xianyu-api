@@ -24,8 +24,10 @@ class PoemController {
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
+    // 分组正则查询
+    const q = new RegExp(ctx.query.q)
     const allPoems = await poemModel.find()
-    const poems = await poemModel.find().sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
+    const poems = await poemModel.find({ $or: [{ poem_author: q }, { author_dynasty: q }, { poem_title: q }] }).sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage)
     ctx.body = {
       errno: 0,
       data: poems,
