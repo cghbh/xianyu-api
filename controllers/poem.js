@@ -99,6 +99,15 @@ class PoemController {
       }
     }
   }
+  
+  // 返回点赞量最高的前十五首诗词
+  async hotPoem (ctx) {
+    const poems = await poemModel.find().sort({ zan_number: 'desc' }).limit(15)
+    ctx.body = {
+      errno: 0,
+      data: poems
+    }
+  }
 }
 
 module.exports = new PoemController()

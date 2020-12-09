@@ -1,7 +1,7 @@
 const Router = require('koa-router')
 const jwt = require('koa-jwt')
 const router = new Router()
-const { listPoem, listPoemById, addPoem, editPoem, deletePoem, checkPoemExist, checkPoemOwner } = require('../controllers/poem.js')
+const { listPoem, listPoemById, addPoem, editPoem, deletePoem, checkPoemExist, checkPoemOwner, hotPoem } = require('../controllers/poem.js')
 const config = require('../../secret.js')
 
 const auth = jwt({ secret: config.JWT_SECRET })
@@ -22,5 +22,7 @@ router.delete('/:id', auth, checkPoemExist, checkPoemOwner, deletePoem)
 
 // 编辑诗词
 router.patch('/:id', auth, checkPoemExist, checkPoemOwner, editPoem)
+
+router.post('/hot', hotPoem)
 
 module.exports = router
