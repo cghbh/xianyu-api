@@ -10,7 +10,8 @@ const ossClient = new OSS({
   region: 'oss-cn-beijing',
   accessKeyId: config.accessKeyId,
   accessKeySecret: config.accessKeySecret,
-  bucket: 'xianyu-uploads'
+  bucket: 'xianyu-uploads',
+  secure: true
 })
 
 const uploadimg = async (ctx, next) => {
