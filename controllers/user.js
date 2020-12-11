@@ -272,7 +272,7 @@ class UserController {
 
   // 返回我的关注
   async listFollowing(ctx) {
-    const { perpage = 20 } = ctx.query
+    const { perpage = 2 } = ctx.query
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
@@ -282,8 +282,8 @@ class UserController {
       ctx.throw(404, '用户不存在')
     }
     
-    // 前端方法的分页实现
-    const newUser = JSON.parse(JSON.stringify(user) || '[]').following.splice((page - 1) * perPage, perPage)
+    // 前端方法的分页实现 slice的效率比splice的高
+    const newUser = user.following.slice((page - 1) * perPage, page * perPage)
     const allUsers = await userModel.findById(ctx.params.id).select('+following').populate('following')
     ctx.body = {
       errno: 0,
