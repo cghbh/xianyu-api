@@ -272,15 +272,19 @@ class UserController {
 
   // 返回我的关注
   async listFollowing(ctx) {
-    // populated是联表查询的功能，不然只能返回id
-    // 这里备注：需要做分页的处理逻辑
-    const user = await userModel.findById(ctx.params.id).select('+following').populate('following')
+    const { perpage = 20 } = ctx.query
+    const perPage = Math.max(perpage * 1, 1)
+    // 默认从第一页开始
+    const page = Math.max(ctx.query.current_page * 1, 1)
+    const allUsers = await userModel.findById(ctx.params.id).select('+following').populate('following')
+    const user = await userModel.findById(ctx.params.id).select('+following').populate('following').limit(perPage).skip((page - 1) * perPage)
     if (!user) {
       ctx.throw(404, '用户不存在')
     }
     ctx.body = {
       errno: 0,
-      data: user.following
+      data: user.following,
+      total: allUsers.following.length
     }
   }
 
