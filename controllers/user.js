@@ -277,7 +277,7 @@ class UserController {
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
     const allUsers = await userModel.findById(ctx.params.id).select('+following').populate('following')
-    const user = await userModel.findById(ctx.params.id).select('+following').populate('following').limit(perPage).skip((page - 1) * perPage)
+    const user = await userModel.findById(ctx.params.id).select('+following').limit(perPage).skip((page - 1) * perPage).populate('following')
     if (!user) {
       ctx.throw(404, '用户不存在')
     }
