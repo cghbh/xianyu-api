@@ -7,7 +7,7 @@ const poemModel = require('../models/poem.js')
 const wordModel = require('../models/word.js')
 const articleModel = require('../models/article.js')
 const bcrypt = require('bcrypt')
-
+const avatars = require('../utils/avatar.js')
 // Redis校验验证码
 const { getValue } = require('../config/redis.js')
 
@@ -219,7 +219,8 @@ class UserController {
       // 正常逻辑执行
       body.password = await bcrypt.hash(body.password, 5)
       const user = new userModel({
-        ...ctx.request.body
+        ...ctx.request.body,
+        avatar_url: avatars[Math.floor(Math.random() * avatars.length)]
       })
       await user.save()
       ctx.body = {

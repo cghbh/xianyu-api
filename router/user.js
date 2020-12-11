@@ -10,10 +10,10 @@ const { checkPoemExist } = require('../controllers/poem.js')
 const { checkWordExist } = require('../controllers/word.js')
 const { checkArticleExist } = require('../controllers/article.js')
 
-const config = require('../../secret.js')
-
 // 图片上传ali-oss中间件
 const uploadimg = require('../middleware/uploadImg')
+
+const config = require('../../secret.js')
 
 const auth = jwt({ secret: config.JWT_SECRET })
 
