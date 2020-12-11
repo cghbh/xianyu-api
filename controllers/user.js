@@ -276,14 +276,18 @@ class UserController {
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
-    const allUsers = await userModel.findById(ctx.params.id).select('+following').populate('following')
-    const user = await userModel.findById(ctx.params.id).select('+following').limit(perPage).skip((page - 1) * perPage).populate('following')
+    const user = await userModel.findById(ctx.params.id).select('+following').populate('following')
+    
     if (!user) {
       ctx.throw(404, '用户不存在')
     }
+    
+    // 前端方法的分页实现
+    const newUser = JSON.parse(JSON.stringify(user) || '[]').following.splice((page - 1) * perPage, perPage)
+    const allUsers = await userModel.findById(ctx.params.id).select('+following').populate('following')
     ctx.body = {
       errno: 0,
-      data: user.following,
+      data: newUser,
       total: allUsers.following.length
     }
   }
