@@ -35,7 +35,7 @@ const userSchema = new Schema({
     }],
     select: false
   },
-  created: { type: String, select: false },
+  created: { type: String },
   updated: { type: String, select: false },
   // 用户的状态，0-正常，1-禁言特定时间，2-永久禁言
   status: { type: Number, enum: [0, 1, 2], default: 0, select: false },
