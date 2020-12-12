@@ -70,7 +70,8 @@ class SubjectController {
     })
     const { body } = ctx.request
     // 先判断题目是否存在
-    const oldSubject = subjectModel.findOne({ question_title: body.question_title })
+    const oldSubject = await subjectModel.findOne({ question_title: body.question_title })
+	  console.log(oldSubject)
     if (oldSubject) {
       return ctx.body = {
         errno: 1,
