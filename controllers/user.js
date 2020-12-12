@@ -63,6 +63,7 @@ class UserController {
       data: user
     }
   }
+  
   // 用户更新操作
   async update(ctx) {
     // { new: true } 表示返回更新之后的数据
@@ -332,13 +333,17 @@ class UserController {
 
   // 关注我的人,也就是我的粉丝
   async listFollowers(ctx) {
-    // 需要做分页的逻辑处理
-    const users = await userModel.find({
-      following: ctx.params.id
-    })
+    // 分页
+    const { perpage = 20 } = ctx.query
+    const perPage = Math.max(perpage * 1, 1)
+    const page = Math.max(ctx.query.current_page * 1, 1)
+    
+    const allUsers = await userModel.find({following: ctx.params.id}) 
+    const users = await userModel.find({following: ctx.params.id}).limit(perPage).skip((page - 1) * perPage)
     ctx.body = {
       errno: 0,
-      data: users
+      data: users,
+      total: allUsers.length
     }
   }
 
