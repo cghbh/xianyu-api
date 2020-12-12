@@ -311,7 +311,7 @@ class UserController {
       user.save()
     }
     ctx.body = {
-      errno: 200,
+      errno: 0,
       message: '关注成功'
     }
   }
