@@ -272,7 +272,7 @@ class UserController {
 
   // 返回我的关注
   async listFollowing(ctx) {
-    const { perpage = 2 } = ctx.query
+    const { perpage = 20 } = ctx.query
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
