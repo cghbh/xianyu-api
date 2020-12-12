@@ -292,6 +292,7 @@ class UserController {
     } else {
       newUser = user.following
     }
+    newUser.sort((a, b) => a.createdAt - b.createdAt )
     const allUsers = await userModel.findById(ctx.params.id).select('+following').populate('following')
     ctx.body = {
       errno: 0,
