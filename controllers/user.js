@@ -292,7 +292,6 @@ class UserController {
     } else {
       newUser = user.following
     }
-    newUser.sort((a, b) => b.createdAt - a.createdAt)
     const allUsers = await userModel.findById(ctx.params.id).select('+following').populate('following')
     ctx.body = {
       errno: 0,
@@ -309,7 +308,8 @@ class UserController {
     }
     // 未关注的才能关注
     if (!user.following.map(item => item.toString()).includes(ctx.params.id) && ctx.params.id !== ctx.state.user._id) {
-      user.following.push(ctx.params.id)
+      // 始终让新关注的用户在最前面
+      user.following.unshift(ctx.params.id)
       user.save()
     }
     ctx.body = {
