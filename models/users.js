@@ -90,10 +90,6 @@ const userSchema = new Schema({
     type: [{ type: Schema.Types.ObjectId, ref: 'article' }],
     select: false
   },
-  createdAt: {
-    type: Date,
-    select: false
-  },
   updatedAt: {
     type: Date,
     select: false
