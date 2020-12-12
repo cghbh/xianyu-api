@@ -273,6 +273,7 @@ class UserController {
   // 返回我的关注
   async listFollowing(ctx) {
     const { perpage = 20 } = ctx.query
+    const { show_total } = ctx.query
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
@@ -283,7 +284,13 @@ class UserController {
     }
     
     // 前端方法的分页实现 slice的效率比splice的高
-    const newUser = user.following.slice((page - 1) * perPage, page * perPage)
+    let newUser = []
+    // 是否展示所有的数据，1表示分页，2表示展示所有的数据
+    if (show_total === '1') {
+      newUser = user.following.slice((page - 1) * perPage, page * perPage)
+    } else {
+      newUser = user.following
+    }
     const allUsers = await userModel.findById(ctx.params.id).select('+following').populate('following')
     ctx.body = {
       errno: 0,
