@@ -7,15 +7,23 @@ class DynamicController {
   // 0表示按照点赞量排序，1表示按照时间排序
   async dynamicList (ctx) {
     const { sort = 0 } = ctx.query
+    const { perpage = 20 } = ctx.query
+    const perPage = Math.max(perpage * 1, 1)
+    // 默认从第一页开始
+    const page = Math.max(ctx.query.current_page * 1, 1)
     let dynamics = []
+    let allDynamics = []
     if (sort === '0') {
-      dynamics = await dynamicModel.find().sort({ zan_number: 'desc' }).populate('publisher')
+      allDynamics = await dynamicModel.find().sort({ zan_number: 'desc' }).populate('publisher')
+      dynamics = await dynamicModel.find().sort({ zan_number: 'desc' }).populate('publisher').limit(perPage).skip((page - 1) * perPage)
     } else {
-       dynamics = await dynamicModel.find().sort({ createdAt: 'desc' }).populate('publisher')
+      allDynamics = await dynamicModel.find().sort({ createdAt: 'desc' }).populate('publisher')
+      dynamics = await dynamicModel.find().sort({ createdAt: 'desc' }).populate('publisher').limit(perPage).skip((page - 1) * perPage)
     }
     ctx.body = {
       errno: 0,
-      data: dynamics
+      data: dynamics,
+      total: allDynamics.length
     }
   }
   
