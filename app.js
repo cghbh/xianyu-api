@@ -15,7 +15,7 @@ const app = new Koa()
 
 // 控制生产环境下的错误堆栈输出显示
 app.use(error({
-  postFormat: (e, { stack, ...rest }) => process.env.NODE_ENV === 'production' ? rest : { stack, ...rest }
+  postFormat: (e, { stack, ...rest }) => process.env.NODE_ENV === 'production' ? { stack, ...rest } : { stack, ...rest }
 }))
 
 app.use(accessLogger())

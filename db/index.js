@@ -3,7 +3,6 @@ const config = require('../../secret.js')
 
 // 根据环境判断使用数据库
 if (process.env.NODE_ENV === 'development') {
-  console.log(1)
   mongoose.connect(config.DB_URL_DEV, {  useNewUrlParser: true, useUnifiedTopology: true })
 } else {
   mongoose.connect(config.DB_URL_PROD, {  useNewUrlParser: true, useUnifiedTopology: true })
