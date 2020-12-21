@@ -56,8 +56,10 @@ class UserController {
 
   // 根据用户登录的token返回用户的信息
   async backUserInfoByToken (ctx) {
-    console.log(ctx.state.user)
-    const user = await userModel.findById(ctx.state.user._id)
+    // 字段筛选
+    const { fileds = '' } = ctx.query
+    const userFileds = fileds.split(';').filter(f => f).map(f => ' +' + f).join('')
+    const user = await userModel.findById(ctx.state.user._id).select(userFileds)
     ctx.body = {
       errno: 0,
       data: user
