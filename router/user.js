@@ -113,7 +113,7 @@ router.get('/:id/collectPoems', checkUserExist, getCollectPoemsByUserId)
 router.get('/likeWord/:id', auth, checkWordExist, likeWord)
 
 // 成语取消赞
-router.get('/unlikeWord/:id', auth, checkWordExist, unlikeWord)
+router.delete('/unlikeWord/:id', auth, checkWordExist, unlikeWord)
 
 // 收藏成语
 router.get('/collectWord/:id', auth, checkWordExist, collectWord)
