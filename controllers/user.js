@@ -42,7 +42,7 @@ class UserController {
   async findById(ctx) {
     // 根据指定的字段查询用户的信息
     const { fileds = '' } = ctx.query
-    const userFileds = fileds.split(';').filter(f => f).map(f => ' +' + f).join('')
+    const userFileds = fileds.replace(new RegExp('password', 'gi'), '').split(';').filter(f => f).map(f => ' +' + f).join('')
     const user = await userModel.findById(ctx.params.id).select(userFileds)
     // 抛出用户不存在的错误
     if (!user) {
@@ -58,7 +58,7 @@ class UserController {
   async backUserInfoByToken (ctx) {
     // 字段筛选
     const { fileds = '' } = ctx.query
-    const userFileds = fileds.split(';').filter(f => f).map(f => ' +' + f).join('')
+    const userFileds = fileds.replace(new RegExp('password', 'gi'), '').split(';').filter(f => f).map(f => ' +' + f).join('')
     const user = await userModel.findById(ctx.state.user._id).select(userFileds)
     ctx.body = {
       errno: 0,
