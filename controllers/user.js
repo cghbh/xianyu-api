@@ -127,7 +127,8 @@ class UserController {
     ctx.body = {
       errno: 0,
       message: '登录成功',
-      token
+      token,
+      id: user._id
     }
   }
 
@@ -156,7 +157,8 @@ class UserController {
       ctx.body = {
         errno: 0,
         message: '登录成功',
-        token
+        token,
+        id: user._id
       }
     } else {
       ctx.body = {
