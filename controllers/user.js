@@ -367,7 +367,7 @@ class UserController {
     const user = await userModel.findById(ctx.params.id).select('+following').populate('following')
     const followId = []
     console.log(user, 'user')
-    user.forEach(item => {
+    user.following.forEach(item => {
       followId.push(item._id)
     })
     const dynamics = await dynamicModel.find({ publisher: { $in: followId } })
