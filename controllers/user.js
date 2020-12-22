@@ -366,6 +366,7 @@ class UserController {
     // 获取已登陆用户关注的用户id
     const user = await userModel.findById(ctx.params.id).select('+following').populate('following')
     const followId = []
+    console.log(user, 'user')
     user.forEach(item => {
       followId.push(item._id)
     })
