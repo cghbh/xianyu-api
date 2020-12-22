@@ -375,7 +375,7 @@ class UserController {
       followId.push(item._id)
     })
     const allDynamics = await dynamicModel.find({ publisher: { $in: followId } })
-    const dynamics = await dynamicModel.find({ publisher: { $in: followId } }).limit(perPage).skip((page - 1) * perPage)
+    const dynamics = await dynamicModel.find({ publisher: { $in: followId } }).sort({ createdAt: 'desc' }).limit(perPage).skip((page - 1) * perPage).populate('publisher')
     ctx.body = {
       errno: 0,
       data: dynamics,
