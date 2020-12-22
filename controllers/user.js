@@ -363,17 +363,23 @@ class UserController {
 
   // 获取关注的用户的动态
   async getUserDynamicByFollow(ctx) {
+    // 分页
+    const { perpage = 2 } = ctx.query
+    const perPage = Math.max(perpage * 1, 1)
+    const page = Math.max(ctx.query.current_page * 1, 1)
+
     // 获取已登陆用户关注的用户id
     const user = await userModel.findById(ctx.params.id).select('+following').populate('following')
     const followId = []
     user.following.forEach(item => {
       followId.push(item._id)
     })
-    console.log(followId, 'followId')
-    const dynamics = await dynamicModel.find({ publisher: { $in: followId } })
+    const allDynamics = await dynamicModel.find({ publisher: { $in: followId } })
+    const dynamics = await dynamicModel.find({ publisher: { $in: followId } }).limit(perPage).skip((page - 1) * perPage)
     ctx.body = {
       errno: 0,
       data: dynamics,
+      total: allDynamics.length,
       message: '获取成功'
     }
   }
