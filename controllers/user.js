@@ -366,10 +366,10 @@ class UserController {
     // 获取已登陆用户关注的用户id
     const user = await userModel.findById(ctx.params.id).select('+following').populate('following')
     const followId = []
-    console.log(user, 'user')
     user.following.forEach(item => {
       followId.push(item._id)
     })
+    console.log(followId, 'followId')
     const dynamics = await dynamicModel.find({ publisher: { $in: followId } })
     ctx.body = {
       errno: 0,
