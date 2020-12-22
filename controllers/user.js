@@ -364,7 +364,7 @@ class UserController {
   // 获取关注的用户的动态
   async getUserDynamicByFollow(ctx) {
     // 分页
-    const { perpage = 2 } = ctx.query
+    const { perpage = 15 } = ctx.query
     const perPage = Math.max(perpage * 1, 1)
     const page = Math.max(ctx.query.current_page * 1, 1)
 
