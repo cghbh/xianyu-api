@@ -354,9 +354,7 @@ class UserController {
 
   // 根据用户id获取用户发布的动态
   async getUserDynamicById(ctx) {
-    const dynamics = await dynamicModel.find({
-      publisher: ctx.params.id
-    })
+    const dynamics = await dynamicModel.find({ publisher: ctx.params.id })
     ctx.body = {
       errno: 0,
       data: dynamics
@@ -364,7 +362,20 @@ class UserController {
   }
 
   // 获取关注的用户的动态
-  async getUserDynamicByFollow(ctx) {}
+  async getUserDynamicByFollow(ctx) {
+    // 获取已登陆用户关注的用户id
+    const user = await userModel.findById(ctx.params.id).select('+following').populate('following')
+    const followId = []
+    user.forEach(item => {
+      followId.push(item._id)
+    })
+    const dynamics = await dynamicModel.find({ publisher: { $in: followId } })
+    ctx.body = {
+      errno: 0,
+      data: dynamics,
+      message: '获取成功'
+    }
+  }
   
   // 用户点过的赞的动态列表
   async listLikeDynamics (ctx) {
