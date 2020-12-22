@@ -435,6 +435,45 @@ class UserController {
       }
     }
   }
+
+  // 动态收藏
+  async collectDynamics (ctx) {
+    const user = await userModel.findById(ctx.state.user._id).select('+collectDynamics')
+    // 没有收藏过的段子才能被收藏
+    if (!user.collectDynamics.map(item => item.toString()).includes(ctx.params.id)) {
+      user.collectDynamics.push(ctx.params.id)
+      await user.save()
+      await dynamicModel.findByIdAndUpdate(ctx.params.id, { $inc: { collect_number: 1 } })
+    }
+    ctx.body = {
+      errno: 0,
+      message: '收藏成功'
+    }
+  }
+  // 动态取消收藏
+  async cancelCollectDynamics (ctx) {
+    const user = await userModel.findById(ctx.state.user._id).select('+collectDynamics')
+    const index = user.collectDynamics.indexOf(ctx.params.id)
+    if (index > -1) {
+      user.collectDynamics.splice(index, 1)
+      user.save()
+      await dynamicModel.findByIdAndUpdate(ctx.params.id, { $inc: { collect_number: -1 } })
+    }
+    ctx.body = {
+      errno: 0,
+      message: '取消收藏成功'
+    }
+  }
+
+  // 返回指定id的收藏的动态
+  async getUserCollectDynamics (ctx) {
+    const user = await userModel.findById(ctx.params.id).select('+collectDynamics').populate('collectDynamics')
+    ctx.body = {
+      errno: 0,
+      data: user.collectDynamics,
+      message: '数据获取成功'
+    }
+  }
   
   // 段子点赞
   async likeJoke (ctx) {
@@ -487,7 +526,7 @@ class UserController {
     }
     ctx.body = {
       errno: 0,
-      msg: '收藏成功'
+      message: '收藏成功'
     }
   }
   

@@ -50,6 +50,11 @@ const userSchema = new Schema({
     type: [{ type: Schema.Types.ObjectId, ref: 'dynamic' }],
     select: false
   },
+  // 收藏的动态
+  collectDynamics: {
+    type: [{ type: Schema.Types.ObjectId, ref: 'dynamic' }],
+    select: false
+  },
   // 点赞的段子
   likeJokes: {
     type: [{ type: Schema.Types.ObjectId, ref: 'joke' }],
