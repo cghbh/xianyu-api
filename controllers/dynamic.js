@@ -14,8 +14,8 @@ class DynamicController {
     let dynamics = []
     let allDynamics = []
     if (sort === '0') {
-      allDynamics = await dynamicModel.find({is_private: true}).sort({ zan_number: 'desc' }).populate('publisher')
-      dynamics = await dynamicModel.find({is_private: true}).sort({ zan_number: 'desc' }).populate('publisher').limit(perPage).skip((page - 1) * perPage)
+      allDynamics = await dynamicModel.find({is_private: false}).sort({ zan_number: 'desc' }).populate('publisher')
+      dynamics = await dynamicModel.find({is_private: false}).sort({ zan_number: 'desc' }).populate('publisher').limit(perPage).skip((page - 1) * perPage)
     } else {
       allDynamics = await dynamicModel.find({is_private: true}).sort({ createdAt: 'desc' }).populate('publisher')
       dynamics = await dynamicModel.find({is_private: true}).sort({ createdAt: 'desc' }).populate('publisher').limit(perPage).skip((page - 1) * perPage)

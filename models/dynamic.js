@@ -17,7 +17,8 @@ const dynamicSchema = new Schema({
   },
   // 是否是私密的
   is_private: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   // 动态的发布者
   publisher: {
