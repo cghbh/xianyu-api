@@ -485,7 +485,7 @@ class UserController {
 
   // 返回指定id的收藏的动态
   async getUserCollectDynamics (ctx) {
-    const user = await (await userModel.findById(ctx.params.id).select('+collectDynamics').populate('collectDynamics')).populate('publisher')
+    const user = await userModel.findById(ctx.params.id).select('+collectDynamics').populate('collectDynamics').populate('publisher')
     ctx.body = {
       errno: 0,
       data: user.collectDynamics,
