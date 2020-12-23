@@ -27,14 +27,14 @@ class DynamicController {
     }
   }
 
-  // 如果用户登陆，则返回私密动态，否则只返回常规的动态
+  // 如果用户登陆，则返回私密动态和常规的动态
   async dynamicListUserLogin (ctx) {
     const { perpage = 20 } = ctx.query
     const perPage = Math.max(perpage * 1, 1)
     // 默认从第一页开始
     const page = Math.max(ctx.query.current_page * 1, 1)
-    const allDynamics = await dynamicModel.find().sort({ createdAt: 'desc' }).populate('publisher')
-    const dynamics = await dynamicModel.find().sort({ createdAt: 'desc' }).populate('publisher').limit(perPage).skip((page - 1) * perPage)
+    const allDynamics = await dynamicModel.find({publisher: ctx.state.user._id}).sort({ createdAt: 'desc' }).populate('publisher')
+    const dynamics = await dynamicModel.find({publisher: ctx.state.user._id}).sort({ createdAt: 'desc' }).populate('publisher').limit(perPage).skip((page - 1) * perPage)
     ctx.body = {
       errno: 0,
       data: dynamics,
