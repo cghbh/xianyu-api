@@ -15,9 +15,8 @@ router.prefix('/dynamics')
 // 获取所有的动态
 router.get('/', dynamicList)
 
+// 获取指定id的动态的详情
 router.get('/:id', dynamicById)
-
-// 获取关注用户的动态
 
 // 登录之后的用户才能发表
 router.post('/', auth, publicDynamic)

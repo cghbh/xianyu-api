@@ -4,7 +4,7 @@ const router = new Router()
 
 const { checkOwner, find, findById, backUserInfoByToken, update, deleteById, login, loginByTelephoneCode, findBackPassword, register, listFollowing, follow, unfollow, listFollowers, checkUserExist, getUserDynamicById, uploadUserAvatar, likeDynamics, unlikeDynamics, listLikeDynamics, likeJoke, unlikeJoke, getJokeByUserId, collectJoke, cancelCollectJoke, getCollectJokeById, likePoem, unlikePoem, collectPoem, cancelCollectPoem, getLikePomesByUserId, getCollectPoemsByUserId, likeWord, unlikeWord, cancelCollectWord, collectWord, getLikeWordsByUserId, getCollectWordsByUserId, likeArticle, unlikeArticle, collectArticle, cancelCollectArticle, getLikeArticlesByUserId, getCollectArticlesByUserId, getUserCollectDynamics,cancelCollectDynamics, collectDynamics, getUserDynamicByFollow } = require('../controllers/user.js')
 
-const { checkDynamicExist } = require('../controllers/dynamic.js')
+const { checkDynamicExist, dynamicListUserLogin } = require('../controllers/dynamic.js')
 const { checkJokeExist } = require('../controllers/joke.js')
 const { checkPoemExist } = require('../controllers/poem.js')
 const { checkWordExist } = require('../controllers/word.js')
@@ -81,6 +81,9 @@ router.delete('/cancelCollectDynamics/:id', auth, checkDynamicExist, cancelColle
 
 // 获取指定id用户的所有收藏的动态
 router.get('/:id/collectDynamics', checkUserExist, getUserCollectDynamics)
+
+// 返回已登陆用户的所有发布过的动态
+router.post('/userOwnDynamics', auth, dynamicListUserLogin)
 
 // 获取指定id用户的关注者的动态,需要登陆
 router.get('/:id/followDynamics', auth, checkUserExist, getUserDynamicByFollow)
