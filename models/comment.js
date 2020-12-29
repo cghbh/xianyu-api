@@ -24,13 +24,24 @@ const commentSchema = new Schema({
     required: true
   },
   // 根评论的id，判断当前是一级评论还是二级评论
-  root_comment_id: {
-    type: String
-  },
+  // root_comment_id: {
+  //   type: String
+  // },
   // 向谁回复评论
-  reply_to: {
-    type: Schema.Types.ObjectId,
-    ref: 'user'
+  // reply_to: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'user'
+  // },
+  // 评论的评论
+  second_comment: {
+    type: [{
+      content: { type: String },
+      commentator: { type: Schema.Types.ObjectId, ref: 'user' },
+      root_comment_id: { type: String },
+      reply_to: { type: Schema.Types.ObjectId, ref: 'user' },
+      dynamic_id: { type: String, required: true },
+      createdAt: { type: Date }
+    }]
   },
   updatedAt: {
     type: Date,
