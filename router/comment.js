@@ -17,6 +17,6 @@ router.get('/', checkDynamicExist, commentList)
 // 添加评论
 router.post('/', auth, checkDynamicExist, addComment)
 
-router.delete('/:id', deleteComment)
+router.delete('/:cId', deleteComment)
 
 module.exports = router

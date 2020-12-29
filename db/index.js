@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const config = require('../../secret.js')
 
+mongoose.set('useFindAndModify', false)
+
 // 根据环境判断使用数据库
 if (process.env.NODE_ENV === 'development') {
   mongoose.connect(config.DB_URL_DEV, {  useNewUrlParser: true, useUnifiedTopology: true })
