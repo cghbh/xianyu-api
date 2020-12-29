@@ -9,7 +9,7 @@ const config = require('../../secret.js')
 const auth = jwt({ secret: config.JWT_SECRET })
 
 // 路由前缀
-router.prefix('/dynamics/:dynamicId/comments')
+router.prefix('/dynamics/:id/comments')
 
 // 获取dynamicId动态下面的所有评论
 router.get('/', checkCommentExist, commentList)
