@@ -2,7 +2,7 @@ const Router = require('koa-router')
 const jwt = require('koa-jwt')
 const router = new Router()
 const { commentList, checkCommentExist, addComment } = require('../controllers/comment.js')
-const { checkUserExist } = require('../controllers/user.js')
+const { checkDynamicExist } = require('../controllers/dynamic.js')
 const config = require('../../secret.js')
 
 // 鉴权中间件，必须登录
@@ -15,6 +15,6 @@ router.prefix('/dynamics/:dynamicId/comments')
 router.get('/', checkCommentExist, commentList)
 
 // 添加评论
-router.post('/', auth, checkCommentExist, addComment)
+router.post('/', auth, checkDynamicExist, addComment)
 
 module.exports = router
