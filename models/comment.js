@@ -31,6 +31,10 @@ const commentSchema = new Schema({
   reply_to: {
     type: Schema.Types.ObjectId,
     ref: 'user'
+  },
+  updatedAt: {
+    type: Date,
+    select: false
   }
 }, { timestamps: true })
 

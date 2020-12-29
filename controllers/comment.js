@@ -7,8 +7,8 @@ class CommentController {
     const dynamic_id = ctx.params.dynamicId
     // 路由上面是否有根节点评论id，如果有的话查询二级评论
     const root_comment_id = ctx.query.root_comment_id
-    console.log(root_comment_id, '根节点id')
-    const comments = await commentModel.find({ dynamic_id, root_comment_id }).populate('commentator reply_to')
+    console.log(root_comment_id, 'root')
+    const comments = await commentModel.find({ dynamic_id }).sort({ createdAt: '-1' }).populate('commentator reply_to')
     ctx.body = {
       errno: 0,
       data: comments
@@ -30,6 +30,9 @@ class CommentController {
   async addComment (ctx) {
     // 获取动态的id和作者的id
     const commentator = ctx.state.user._id
+    
+    console.log(commentator, '评论人')
+    console.log(ctx.state, 'state')
     const dynamic_id = ctx.params.dynamicId
     const { body } = ctx.request
     try {
