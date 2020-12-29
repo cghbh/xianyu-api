@@ -13,7 +13,7 @@ class CommentController {
     //   errno: 0,
     //   data: comments
     // }
-    const dynamicId = ctx.params.dynamicId
+    const dynamicId = ctx.params.id
     const comments = await commentModel.find({ dynamic_id: dynamicId }).sort({ createdAt: '-1' }).populate({
       path: 'commentator second_comment',
       populate: {
@@ -30,28 +30,18 @@ class CommentController {
   // 获取所有的一级评论和二级评论数据
   async commentListAll (ctx) {}
   
-  // 检查动态是否存在的中间件
-  async checkCommentExist (ctx, next) {
-    const dynamic = await dynamicModel.findById(ctx.params.dynamicId)
-    if (!dynamic) { ctx.throw(404, '动态不存在')}
-    await next()
-  }
-  
   // 添加动态的评论
   async addComment (ctx) {
     // 获取动态的id和作者的id
     const commentator = ctx.state.user._id
-    const dynamic_id = ctx.params.dynamicId
+    const dynamic_id = ctx.params.id
     const { body } = ctx.request
     // console.log(body, 'body')
     const { root_comment_id, reply_to, content } = ctx.request.body
     if (root_comment_id && reply_to) {
-      console.log(1)
       const comment = await commentModel.findById(root_comment_id)
-      console.log(comment, 'comment')
       comment.second_comment.push({ ...body, dynamic_id, createdAt: new Date(), commentator })
       comment.save()
-      console.log(comment, 'c1')
       ctx.body = {
         errno: 0,
         message: '评论成功'
@@ -64,21 +54,6 @@ class CommentController {
         message: '评论成功'
       }
     }
-    // ctx.body = body
-    // try {
-    //   const comment = new commentModel({ commentator, dynamic_id, ...body })
-    //   await comment.save()
-    //   ctx.body = {
-    //     errno: 0,
-    //     message: '评论成功'
-    //   }
-    // } catch (err) {
-    //   console.log(err, 'err')
-    //   ctx.body = {
-    //     errno: 1,
-    //     message:'评论失败'
-    //   }
-    // }
   }
   // 删除动态的评论，需要判断删除的人是否是发布评论的人
 }
