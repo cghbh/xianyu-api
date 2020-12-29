@@ -1,7 +1,7 @@
 const Router = require('koa-router')
 const jwt = require('koa-jwt')
 const router = new Router()
-const { commentList, checkCommentExist, addComment } = require('../controllers/comment.js')
+const { commentList, addComment } = require('../controllers/comment.js')
 const { checkDynamicExist } = require('../controllers/dynamic.js')
 const config = require('../../secret.js')
 
@@ -12,7 +12,7 @@ const auth = jwt({ secret: config.JWT_SECRET })
 router.prefix('/dynamics/:id/comments')
 
 // 获取dynamicId动态下面的所有评论
-router.get('/', checkCommentExist, commentList)
+router.get('/', checkDynamicExist, commentList)
 
 // 添加评论
 router.post('/', auth, checkDynamicExist, addComment)
