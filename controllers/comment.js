@@ -56,6 +56,13 @@ class CommentController {
     }
   }
   // 删除动态的评论，需要判断删除的人是否是发布评论的人
+  async deleteComment (ctx) {
+    const comment = await commentModel.findByIdAndRemove(ctx.params.c_id)
+    ctx.body = {
+      errno: 0,
+      message: '删除成功'
+    }
+  }
 }
 
 module.exports = new CommentController()

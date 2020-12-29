@@ -1,7 +1,7 @@
 const Router = require('koa-router')
 const jwt = require('koa-jwt')
 const router = new Router()
-const { commentList, addComment } = require('../controllers/comment.js')
+const { commentList, addComment, deleteComment } = require('../controllers/comment.js')
 const { checkDynamicExist } = require('../controllers/dynamic.js')
 const config = require('../../secret.js')
 
@@ -16,5 +16,7 @@ router.get('/', checkDynamicExist, commentList)
 
 // 添加评论
 router.post('/', auth, checkDynamicExist, addComment)
+
+router.delete('/:id', deleteComment)
 
 module.exports = router
