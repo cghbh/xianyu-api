@@ -55,6 +55,10 @@ const userSchema = new Schema({
     type: [{ type: Schema.Types.ObjectId, ref: 'dynamic' }],
     select: false
   },
+  // 用户点赞过的评论id纪录
+  zanDynamicComments: {
+    type: [{ type: String }]
+  },
   // 点赞的段子
   likeJokes: {
     type: [{ type: Schema.Types.ObjectId, ref: 'joke' }],
