@@ -23,7 +23,10 @@ const commentSchema = new Schema({
     type: String,
     required: true
   },
-  zan_number: 0,
+  zan_number: {
+    type: Number,
+    default: 0
+  },
   // 根评论的id，判断当前是一级评论还是二级评论
   // root_comment_id: {
   //   type: String
@@ -42,7 +45,7 @@ const commentSchema = new Schema({
       reply_to: { type: Schema.Types.ObjectId, ref: 'user' },
       dynamic_id: { type: String, required: true },
       createdAt: { type: Date },
-      zan_number: 0
+      zan_number: { type: Number, default: 0 }
     }]
   },
   updatedAt: {
