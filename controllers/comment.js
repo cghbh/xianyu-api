@@ -180,7 +180,7 @@ class CommentController {
         const newSecondComment = newResult.second_comment.find(item => item._id.toString() === second_id)
         ctx.body = {
           errno: 0,
-          message: '点赞成功',
+          message: '取消点赞成功',
           comment: newSecondComment
         }
       } else {
