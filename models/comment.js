@@ -27,15 +27,6 @@ const commentSchema = new Schema({
     type: Number,
     default: 0
   },
-  // 根评论的id，判断当前是一级评论还是二级评论
-  // root_comment_id: {
-  //   type: String
-  // },
-  // 向谁回复评论
-  // reply_to: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'user'
-  // },
   // 评论的评论
   second_comment: {
     type: [{

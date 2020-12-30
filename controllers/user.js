@@ -468,6 +468,7 @@ class UserController {
       message: '收藏成功'
     }
   }
+
   // 动态取消收藏
   async cancelCollectDynamics (ctx) {
     const user = await userModel.findById(ctx.state.user._id).select('+collectDynamics')

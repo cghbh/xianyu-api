@@ -57,7 +57,8 @@ const userSchema = new Schema({
   },
   // 用户点赞过的评论id纪录
   zanDynamicComments: {
-    type: [{ type: String }]
+    type: [{ type: String }],
+    select: false
   },
   // 点赞的段子
   likeJokes: {

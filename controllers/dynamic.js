@@ -85,8 +85,15 @@ class DynamicController {
   // 检查当前的这个动态是否存在，用在删除点赞的时候
   async checkDynamicExist (ctx, next) {
     const dynamic = await dynamicModel.findById(ctx.params.id)
-    if (!dynamic) { ctx.throw(404, '动态不存在！') }
-    ctx.state.dynamic = dynamic
+    if (!dynamic) {
+      return ctx.body = {
+        errno: 1,
+        message: '动态不存在'
+      }
+    } else {
+      ctx.state.dynamic = dynamic
+    }
+    
     await next()
   }
   
