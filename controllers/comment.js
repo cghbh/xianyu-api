@@ -39,10 +39,10 @@ class CommentController {
     const dynamic_id = ctx.params.id
     const { body } = ctx.request
     const { root_comment_id, reply_to, content } = ctx.request.body
-    // 是根评论
+    // 是根评论的二级评论
     if (root_comment_id && reply_to) {
       const comment = await commentModel.findById(root_comment_id)
-      comment.second_comment.push({ ...body, dynamic_id, createdAt: new Date(), commentator })
+      comment.second_comment.unshift({ ...body, dynamic_id, createdAt: new Date(), commentator })
       comment.save()
       // 动态的评论数量递增
       await dynamicModel.findByIdAndUpdate(dynamic_id, { $inc: { comment_number: 1 } })
