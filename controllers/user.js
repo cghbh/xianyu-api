@@ -427,6 +427,16 @@ class UserController {
       }
     }
   }
+
+  // 返回所有用户点赞过的评论的id
+  async userLikeDynamicComments (ctx) {
+    console.log(1)
+    const commentsId = await userModel.findById(ctx.params.id).select('+zanDynamicComments')
+    ctx.body = {
+      errno: 0,
+      data: commentsId.zanDynamicComments
+    }
+  }
   
   // 取消动态点赞
   async unlikeDynamics (ctx) {

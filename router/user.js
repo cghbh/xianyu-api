@@ -2,7 +2,7 @@ const Router = require('koa-router')
 const jwt = require('koa-jwt')
 const router = new Router()
 
-const { checkOwner, find, findById, backUserInfoByToken, update, deleteById, login, loginByTelephoneCode, findBackPassword, register, listFollowing, follow, unfollow, listFollowers, checkUserExist, getUserDynamicById, uploadUserAvatar, likeDynamics, unlikeDynamics, listLikeDynamics, likeJoke, unlikeJoke, getJokeByUserId, collectJoke, cancelCollectJoke, getCollectJokeById, likePoem, unlikePoem, collectPoem, cancelCollectPoem, getLikePomesByUserId, getCollectPoemsByUserId, likeWord, unlikeWord, cancelCollectWord, collectWord, getLikeWordsByUserId, getCollectWordsByUserId, likeArticle, unlikeArticle, collectArticle, cancelCollectArticle, getLikeArticlesByUserId, getCollectArticlesByUserId, getUserCollectDynamics,cancelCollectDynamics, collectDynamics, getUserDynamicByFollow } = require('../controllers/user.js')
+const { checkOwner, find, findById, backUserInfoByToken, update, deleteById, login, loginByTelephoneCode, findBackPassword, register, listFollowing, follow, unfollow, listFollowers, checkUserExist, getUserDynamicById, uploadUserAvatar, likeDynamics, unlikeDynamics, listLikeDynamics, likeJoke, unlikeJoke, getJokeByUserId, collectJoke, cancelCollectJoke, getCollectJokeById, likePoem, unlikePoem, collectPoem, cancelCollectPoem, getLikePomesByUserId, getCollectPoemsByUserId, likeWord, unlikeWord, cancelCollectWord, collectWord, getLikeWordsByUserId, getCollectWordsByUserId, likeArticle, unlikeArticle, collectArticle, cancelCollectArticle, getLikeArticlesByUserId, getCollectArticlesByUserId, getUserCollectDynamics,cancelCollectDynamics, collectDynamics, getUserDynamicByFollow, userLikeDynamicComments } = require('../controllers/user.js')
 
 const { checkDynamicExist, dynamicListUserLogin } = require('../controllers/dynamic.js')
 const { checkJokeExist } = require('../controllers/joke.js')
@@ -78,6 +78,9 @@ router.get('/collectDynamics/:id', auth, checkDynamicExist, collectDynamics)
 
 // 用户取消收藏动态
 router.delete('/cancelCollectDynamics/:id', auth, checkDynamicExist, cancelCollectDynamics)
+
+// 获取用户点赞过的所有的评论列表id
+router.get('/:id/getZanCommentsId', checkUserExist, userLikeDynamicComments)
 
 // 获取指定id用户的所有收藏的动态
 router.get('/:id/collectDynamics', checkUserExist, getUserCollectDynamics)
