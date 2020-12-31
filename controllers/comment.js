@@ -8,6 +8,7 @@ class CommentController {
   async commentList (ctx) {
     // sort表示排序，默认是按照评论的点赞量排序，否则是最新的排序
     const dynamicId = ctx.params.id
+    const { sort } = ctx.query
     let comments = []
     if (sort === '1') {
       comments = await commentModel.find({ dynamic_id: dynamicId }).sort({ zan_number: 'desc' }).populate({
