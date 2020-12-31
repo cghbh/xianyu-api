@@ -6,36 +6,28 @@ const { use } = require('../router/comment')
 class CommentController {
   // 获取指定动态下面的所有评论
   async commentList (ctx) {
-    // 默认每页展示20条数据,sort表示排序，默认是按照评论的点赞量排序，否则是最新的排序
-    const { perpage = 20, sort = '1' } = ctx.query
-    const perPage = Math.max(perpage * 1, 1)
-    // 默认从第一页开始
-    const page = Math.max(ctx.query.current_page * 1, 1)
+    // sort表示排序，默认是按照评论的点赞量排序，否则是最新的排序
     const dynamicId = ctx.params.id
-    const allComments = await commentModel.find({ dynamic_id: dynamicId })
-
     let comments = []
-
     if (sort === '1') {
       comments = await commentModel.find({ dynamic_id: dynamicId }).sort({ zan_number: 'desc' }).populate({
         path: 'commentator second_comment',
         populate: {
           path: 'commentator reply_to'
         }
-      }).limit(perPage).skip((page - 1) * perPage)
+      })
     } else if (sort === '0') {
       comments = await commentModel.find({ dynamic_id: dynamicId }).sort({ createdAt: 'desc' }).populate({
         path: 'commentator second_comment',
         populate: {
           path: 'commentator reply_to'
         }
-      }).limit(perPage).skip((page - 1) * perPage)
+      })
     }
     
     ctx.body = {
       errno: 0,
       data: comments,
-      total: allComments.length
     }
   }
   
