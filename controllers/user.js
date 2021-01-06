@@ -345,6 +345,7 @@ class UserController {
     
     const allUsers = await userModel.find({following: ctx.params.id}) 
     const users = await userModel.find({following: ctx.params.id}).limit(perPage).skip((page - 1) * perPage)
+    console.log(users, '2021')
     ctx.body = {
       errno: 0,
       data: users,
