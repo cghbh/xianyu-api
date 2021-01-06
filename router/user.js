@@ -29,7 +29,7 @@ router.post('/', auth, backUserInfoByToken)
 router.get('/:id', checkUserExist, findById)
 
 // 根据用户的id查询当前的关注
-router.get('/:id/following', listFollowing)
+router.get('/:id/following', checkUserExist, listFollowing)
 
 // 关注某人，必须要鉴权中间件，也就是必须要登录才知道是谁关注的
 router.put('/following/:id', auth, checkUserExist, follow)
@@ -38,13 +38,13 @@ router.put('/following/:id', auth, checkUserExist, follow)
 router.delete('/following/:id', auth, checkUserExist, unfollow)
 
 // 根据id查询粉丝
-router.get('/:id/follower',listFollowers)
+router.get('/:id/follower',checkUserExist, listFollowers)
 
 // 修改用户
 router.patch('/:id', auth, checkOwner, update)
 
 // 删除用户
-router.delete('/:id', auth, deleteById)
+router.delete('/:id', auth, checkUserExist, deleteById)
 
 // 登录
 router.post('/login', login)
@@ -59,7 +59,7 @@ router.post('/reset_password', findBackPassword)
 router.post('/register', register)
 
 // 根据id获取用户的详细信息
-router.get('/:id/dynamics', getUserDynamicById)
+router.get('/:id/dynamics', checkUserExist, getUserDynamicById)
 
 // 用户上传头像，需要登录
 router.post('/upload', auth, uploadimg, uploadUserAvatar)
@@ -67,7 +67,7 @@ router.post('/upload', auth, uploadimg, uploadUserAvatar)
 // 用户点赞过的动态列表
 router.get('/:id/likeDynamcis', checkUserExist, listLikeDynamics)
 
-// 点赞需要登录
+// 点赞,需要登录
 router.get('/likeDynamics/:id', auth, checkDynamicExist, likeDynamics)
 
 // 动态取消点赞
