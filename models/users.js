@@ -9,36 +9,17 @@ const userSchema = new Schema({
   personal_sign: { type: String, default: '这个人很懒，什么都没留下......' },
   nickname: { type: String, required: true, default: '' },
   avatar_url: { type: String },
+  // 背景墙图片
+  background: { type: String },
+  email: { type: String, select: false },
+  birth: { type: Date, select: false},
   // 用户的角色，0-普通，1-管理员，2-超级管理员
   user_roles: { type: Number, enum: [0, 1, 2], default: 0, select: false },
-  // 教育经历，表示一个数组结构的对象
-  educations: {
-    type: [{
-      // 学校
-      school: { type: String },
-      // 专业
-      major: { type: String },
-      // 学历1-小学，2-初中，3-高中，4-大专，5-本科，6-研究生
-      diploma: { type: Number, enum: [1, 2, 3, 4, 5, 6] },
-      // 入学年份
-      entrance_year: { type: Number },
-      // 毕业年份
-      graduation_year: { type: Number }
-    }],
-    select: false
-  },
-  // 工作经历
-  employments: {
-    type: [{
-      company: { type: String },
-      job: { type: String }
-    }],
-    select: false
-  },
   created: { type: String },
   updated: { type: String, select: false },
   // 用户的状态，0-正常，1-禁言特定时间，2-永久禁言
   status: { type: Number, enum: [0, 1, 2], default: 0, select: false },
+  // 所在地
   location: { type: String, select: false },
   // 我的关注
   following: {

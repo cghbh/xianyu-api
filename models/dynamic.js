@@ -2,7 +2,7 @@ const mongoose = require('../db/index.js')
 const { model, Schema } =  mongoose
 const dynamicSchema = new Schema({
   __v: {
-    type: String,
+    type: Number,
     select: false
   },
   // 动态的内容
