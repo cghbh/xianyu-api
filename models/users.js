@@ -8,11 +8,11 @@ const userSchema = new Schema({
   gender: { type: String, enum: ['famale', 'male'], default: 'male', select: false },
   personal_sign: { type: String, default: '这个人很懒，什么都没留下......' },
   nickname: { type: String, required: true, default: '' },
-  avatar_url: { type: String },
+  avatar_url: { type: String, default: '' },
   // 背景墙图片
-  background: { type: String },
-  email: { type: String, select: false },
-  birth: { type: Date, select: false},
+  background: { type: String, default: '' },
+  email: { type: String, select: false, default: '' },
+  birth: { type: String, select: false, default: '1999-09-09'},
   // 用户的角色，0-普通，1-管理员，2-超级管理员
   user_roles: { type: Number, enum: [0, 1, 2], default: 0, select: false },
   created: { type: String },
@@ -20,7 +20,7 @@ const userSchema = new Schema({
   // 用户的状态，0-正常，1-禁言特定时间，2-永久禁言
   status: { type: Number, enum: [0, 1, 2], default: 0, select: false },
   // 所在地
-  location: { type: String, select: false },
+  location: { type: String, select: false, default: '' },
   // 我的关注
   following: {
     type: [{ type: Schema.Types.ObjectId, ref: 'user' }],
