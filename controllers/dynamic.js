@@ -60,10 +60,14 @@ class DynamicController {
     })
     const { body } = ctx.request
     try {
-      await new dynamicModel({...body, publisher: ctx.state.user._id }).save()
+      const dynamic = await new dynamicModel({...body, publisher: ctx.state.user._id }).populate('publisher')
+      dynamic.save()
+      const publisher = await userModel.findById(dynamic.publisher)
+      dynamic.publisher = publisher
       ctx.body = {
         errno: 0,
-        message: '发表成功'
+        message: '发表成功',
+        data: dynamic
       }
     } catch (err) {
       ctx.body = {
