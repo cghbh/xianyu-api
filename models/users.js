@@ -10,7 +10,7 @@ const userSchema = new Schema({
   nickname: { type: String, required: true, default: '' },
   avatar_url: { type: String, default: '' },
   // 背景墙图片
-  background: { type: String, default: '' },
+  background: { type: String, default: 'https://xianyu-uploads.oss-cn-beijing.aliyuncs.com/upload_db2b2600a6320a64bb3ac21d3c58201a.jpg' },
   email: { type: String, select: false, default: '' },
   birth: { type: String, select: false, default: '1999-09-09'},
   // 用户的角色，0-普通，1-管理员，2-超级管理员
