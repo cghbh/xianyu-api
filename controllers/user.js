@@ -67,7 +67,6 @@ class UserController {
     }
     const users = await userModel.find({following: ctx.params.id})
     fans = users.length
-    console.log(zan_number, 'allDynamics')
     // 抛出用户不存在的错误
     if (!user) {
       ctx.throw(404, '用户不存在！')
@@ -77,7 +76,8 @@ class UserController {
       data: user,
       zan_number: zan_number,
       following: following,
-      fans: fans
+      fans: fans,
+      dynamics: allDynamics
     }
   }
 
