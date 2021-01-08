@@ -44,13 +44,40 @@ class UserController {
     const { fileds = '' } = ctx.query
     const userFileds = fileds.replace(new RegExp('password', 'gi'), '').split(';').filter(f => f).map(f => ' +' + f).join('')
     const user = await userModel.findById(ctx.params.id).select(userFileds)
+
+    // 获取所有的动态
+    let allDynamics = []
+    const singleDynamics = await dynamicModel.find({publisher: ctx.params.id }).sort({ createdAt: 'desc' })
+    // 获取用户的点赞量
+    let zan_number = 0
+    // 我的关注的数量
+    let following = 0
+    // 我的粉丝量
+    let fans = 0
+    if (user.following) {
+      following = user.following.length
+    } 
+    singleDynamics.forEach(item => {
+      zan_number += item.zan_number
+    })
+    if (ctx.query.is_private === '1') {
+      allDynamics = await dynamicModel.find({publisher: ctx.params.id }).sort({ createdAt: 'desc' }).populate('publisher')
+    } else {
+      allDynamics = await dynamicModel.find({publisher: ctx.params.id, is_private: false }).sort({ createdAt: 'desc' }).populate('publisher')
+    }
+    const users = await userModel.find({following: ctx.params.id})
+    fans = users.length
+    console.log(zan_number, 'allDynamics')
     // 抛出用户不存在的错误
     if (!user) {
       ctx.throw(404, '用户不存在！')
     }
     ctx.body = {
       errno: 0,
-      data: user
+      data: user,
+      zan_number: zan_number,
+      following: following,
+      fans: fans
     }
   }
 
