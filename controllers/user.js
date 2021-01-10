@@ -149,7 +149,7 @@ class UserController {
       nickname: body.nickname,
       telephone: body.telephone
     }, config.JWT_SECRET, {
-      expiresIn: '15s'
+      expiresIn: '5d'
     })
     ctx.body = {
       errno: 0,
@@ -179,7 +179,7 @@ class UserController {
         nickname: body.nickname,
         telephone: body.telephone
       }, config.JWT_SECRET, {
-        expiresIn: '3d'
+        expiresIn: '5d'
       })
       ctx.body = {
         errno: 0,
