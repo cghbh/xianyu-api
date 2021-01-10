@@ -149,7 +149,7 @@ class UserController {
       nickname: body.nickname,
       telephone: body.telephone
     }, config.JWT_SECRET, {
-      expiresIn: '3d'
+      expiresIn: '15s'
     })
     ctx.body = {
       errno: 0,
