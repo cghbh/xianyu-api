@@ -415,7 +415,19 @@ class UserController {
   // 用户点过的赞的动态列表
   async listLikeDynamics (ctx) {
     try {
-      const user = await userModel.findById(ctx.params.id).select('+likeDynamics').populate('likeDynamics')
+      // 嵌套连表查询
+      const user = await userModel.findById(ctx.params.id).select('+likeDynamics').populate({
+        path: 'likeDynamics',
+        populate: {
+          path: 'publisher'
+        }
+      })
+      populate({
+        path: 'collectDynamics',
+        populate: {
+          path: 'publisher'
+        }
+      })
       ctx.body = {
         errno: 0,
         data: user.likeDynamics,

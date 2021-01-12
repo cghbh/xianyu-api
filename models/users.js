@@ -20,7 +20,7 @@ const userSchema = new Schema({
   // 用户的状态，0-正常，1-禁言特定时间，2-永久禁言
   status: { type: Number, enum: [0, 1, 2], default: 0, select: false },
   // 所在地
-  location: { type: String, select: false, default: '' },
+  location: { type: String, select: false, default: '北京市东城区' },
   // 我的关注
   following: {
     type: [{ type: Schema.Types.ObjectId, ref: 'user' }],
