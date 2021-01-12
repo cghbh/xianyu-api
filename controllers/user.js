@@ -422,12 +422,6 @@ class UserController {
           path: 'publisher'
         }
       })
-      populate({
-        path: 'collectDynamics',
-        populate: {
-          path: 'publisher'
-        }
-      })
       ctx.body = {
         errno: 0,
         data: user.likeDynamics,
