@@ -442,7 +442,7 @@ class UserController {
       // 根据id查询用户
       const user = await userModel.findById(ctx.state.user._id).select('+likeDynamics')
       if (!user.likeDynamics.map(item => item.toString()).includes(ctx.params.id)) {
-        user.likeDynamics.push(ctx.params.id)
+        user.likeDynamics.unshift(ctx.params.id)
         user.save()
         // 点赞量增加1
         await dynamicModel.findByIdAndUpdate(ctx.params.id, { $inc: { zan_number: 1 } }, { new: true })

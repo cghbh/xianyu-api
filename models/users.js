@@ -21,6 +21,11 @@ const userSchema = new Schema({
   status: { type: Number, enum: [0, 1, 2], default: 0, select: false },
   // 所在地
   location: { type: String, select: false, default: '北京市东城区' },
+  // 黑名单人员列表数据
+  block_list: {
+    type: [{ type: Schema.Types.ObjectId, ref: 'user' }],
+    select: false
+  },
   // 我的关注
   following: {
     type: [{ type: Schema.Types.ObjectId, ref: 'user' }],
@@ -28,6 +33,11 @@ const userSchema = new Schema({
   },
   // 点赞的动态
   likeDynamics: { 
+    type: [{ type: Schema.Types.ObjectId, ref: 'dynamic' }],
+    select: false
+  },
+  // 不喜欢的动态，也就是屏蔽的动态
+  unlikeDynamics: {
     type: [{ type: Schema.Types.ObjectId, ref: 'dynamic' }],
     select: false
   },
