@@ -22,7 +22,7 @@ const userSchema = new Schema({
   // 所在地
   location: { type: String, select: false, default: '北京市东城区' },
   // 黑名单人员列表数据
-  block_list: {
+  black_list: {
     type: [{ type: Schema.Types.ObjectId, ref: 'user' }],
     select: false
   },

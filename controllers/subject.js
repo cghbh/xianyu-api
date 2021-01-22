@@ -22,7 +22,8 @@ class SubjectController {
     const subjects = await subjectModel.find()
     ctx.body = {
       errno: 0,
-      data: subjects
+      data: subjects,
+      total: subjects.length
     }
   }
   
