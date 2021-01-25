@@ -39,6 +39,11 @@ const dynamicSchema = new Schema({
   comment_number: {
     type: Number,
     default: 0
+  },
+  // 热度，排序的依据，每评论一次hot值增加2，每点赞一次hot值增加1，后续需求备忘1
+  hot: {
+    type: Number,
+    default: 0
   }
 }, { timestamps: true }) // timestamps: truemongoose自带的时间戳
 
