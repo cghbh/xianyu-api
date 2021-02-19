@@ -63,6 +63,7 @@ class HomeController {
     try {
       const result = await client.request('SendSms', params, requestOption)
       const { Code }= result
+      console.log(Code, '注册验证码')
       if (Code === 'OK') {
         // 验证码发送成功之后，将当前telephone存储到redis中
         setValue('register_' + telephone, `${randomCode}`, 10 * 60)
@@ -109,7 +110,8 @@ class HomeController {
     
     try {
       const result = await client.request('SendSms', params, requestOption)
-      const {Code }= result
+      const { Code }= result
+      console.log(Code, '登陆验证码')
       if (Code === 'OK') {
         // 验证码发送成功之后，将当前telephone存储到redis中
         setValue('login_' + telephone, `${randomCode}`, 10 * 60)
@@ -156,7 +158,8 @@ class HomeController {
     
     try {
       const result = await client.request('SendSms', params, requestOption)
-      const {Code }= result
+      const { Code }= result
+      console.log(Code, '找回密码')
       if (Code === 'OK') {
         // 验证码发送成功之后，将当前telephone存储到redis中
         setValue('find_' + telephone, `${randomCode}`, 10 * 60)
