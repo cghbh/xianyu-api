@@ -53,8 +53,8 @@ class HomeController {
     const params = {
       "RegionId": "cn-hangzhou",
       "PhoneNumbers": telephone,
-      "SignName": "闲语",
-      "TemplateCode": "SMS_205611827",
+      "SignName": "闲语注册",
+      "TemplateCode": "SMS_209196082",
       "TemplateParam": `{ \"code\": ${randomCode} }`
     }
     
@@ -100,8 +100,8 @@ class HomeController {
     const params = {
       "RegionId": "cn-hangzhou",
       "PhoneNumbers": telephone,
-      "SignName": "闲语",
-      "TemplateCode": "SMS_205611827",
+      "SignName": "闲语登陆",
+      "TemplateCode": "SMS_209196083",
       "TemplateParam": `{ \"code\": ${randomCode} }`
     }
     
@@ -147,8 +147,8 @@ class HomeController {
     const params = {
       "RegionId": "cn-hangzhou",
       "PhoneNumbers": telephone,
-      "SignName": "闲语",
-      "TemplateCode": "SMS_205611827",
+      "SignName": "闲语密码重置",
+      "TemplateCode": "SMS_209161130",
       "TemplateParam": `{ \"code\": ${randomCode} }`
     }
     
