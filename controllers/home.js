@@ -53,7 +53,7 @@ class HomeController {
     const params = {
       "RegionId": "cn-hangzhou",
       "PhoneNumbers": telephone,
-      "SignName": "闲语注册",
+      "SignName": "闲语",
       "TemplateCode": "SMS_209196082",
       "TemplateParam": `{ \"code\": ${randomCode} }`
     }
@@ -62,7 +62,7 @@ class HomeController {
     
     try {
       const result = await client.request('SendSms', params, requestOption)
-      const {Code }= result
+      const { Code }= result
       if (Code === 'OK') {
         // 验证码发送成功之后，将当前telephone存储到redis中
         setValue('register_' + telephone, `${randomCode}`, 10 * 60)
@@ -100,7 +100,7 @@ class HomeController {
     const params = {
       "RegionId": "cn-hangzhou",
       "PhoneNumbers": telephone,
-      "SignName": "闲语登陆",
+      "SignName": "闲语",
       "TemplateCode": "SMS_209196083",
       "TemplateParam": `{ \"code\": ${randomCode} }`
     }
@@ -147,7 +147,7 @@ class HomeController {
     const params = {
       "RegionId": "cn-hangzhou",
       "PhoneNumbers": telephone,
-      "SignName": "闲语密码重置",
+      "SignName": "闲语",
       "TemplateCode": "SMS_209161130",
       "TemplateParam": `{ \"code\": ${randomCode} }`
     }
