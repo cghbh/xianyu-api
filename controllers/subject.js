@@ -39,7 +39,6 @@ class SubjectController {
   // 检查题目是否存在
   async checkSubjectExist (ctx, next) {
     const subject = await subjectModel.findById(ctx.params.s_id).select('+publisher')
-    console.log(subject, 'subect')
     if (!subject) { 
       ctx.body = { 
         errno: 1, 
@@ -72,7 +71,6 @@ class SubjectController {
     const { body } = ctx.request
     // 先判断题目是否存在
     const oldSubject = await subjectModel.findOne({ question_title: body.question_title })
-	  console.log(oldSubject)
     if (oldSubject) {
       return ctx.body = {
         errno: 1,

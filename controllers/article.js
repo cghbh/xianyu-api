@@ -54,7 +54,6 @@ class ArticleController {
     })
     // 根据标题检查是否是重复添加了
     const oleArticle = await articleModel.findOne({ article_title: ctx.request.body.article_title })
-    console.log(oleArticle)
     if (oleArticle) { ctx.throw(404, '此文章已存在，请勿重复添加') }
     const article = new articleModel({ publisher: ctx.state.user._id, ...ctx.request.body })
     await article.save()

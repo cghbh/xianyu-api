@@ -107,7 +107,6 @@ class CommentController {
   async likeDynamicComments (ctx) {
     // 二级评论的id
     const second_id = ctx.query.second_id
-    console.log(second_id, 'o-id')
     // 一级评论的id
     const rootCommendId = ctx.query.root_comment_id
     const user = await userModel.findById(ctx.state.user._id).select('+zanDynamicComments')
@@ -160,7 +159,6 @@ class CommentController {
   async unlikeDynamicComments (ctx) {
     // 二级评论的id
     const second_id = ctx.query.second_id
-    console.log(second_id, 'sid')
     // 一级评论的id
     const rootCommendId = ctx.query.root_comment_id
     const user = await userModel.findById(ctx.state.user._id).select('+zanDynamicComments')

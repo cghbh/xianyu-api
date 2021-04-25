@@ -65,7 +65,6 @@ class WordController {
   // 编辑成语
   async editWord (ctx) {
     const word = await wordModel.findByIdAndUpdate(ctx.params.id, { ...ctx.request.body }, { new: true })
-    console.log(word)
     ctx.body = {
       errno: 0,
       message: '编辑成功'

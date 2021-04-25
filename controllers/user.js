@@ -372,7 +372,6 @@ class UserController {
     
     const allUsers = await userModel.find({following: ctx.params.id}) 
     const users = await userModel.find({following: ctx.params.id}).limit(perPage).skip((page - 1) * perPage)
-    console.log(allUsers, '2021')
     ctx.body = {
       errno: 0,
       data: users,
@@ -464,7 +463,6 @@ class UserController {
 
   // 返回所有用户点赞过的评论的id
   async userLikeDynamicComments (ctx) {
-    console.log(1)
     const commentsId = await userModel.findById(ctx.params.id).select('+zanDynamicComments')
     ctx.body = {
       errno: 0,
