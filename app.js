@@ -13,8 +13,6 @@ const parameter = require('koa-parameter')
 const { accessLogger, systemLogger } = require('./utils/log4.js')
 const { getClientIP } = require('./comment/get_ip.js')
 const app = new Koa()
-const IpRouter = require('koa-router')
-const iprouter = new IpRouter()
 
 // 控制生产环境下的错误堆栈输出显示
 app.use(error({
@@ -42,14 +40,5 @@ app.use(parameter(app))
 // 静态文件访问
 app.use(statics(path.join(__dirname, '/public')))
 app.use(router())
-app.use(iprouter.routes())
-app.use(iprouter.allowedMethods())
-
-iprouter.get('/', ctx => {
-  const ip = getClientIP(ctx) 
-  fs.appendFile('./ip.txt', `${ip}` + '\n', (err, data) => {
-    console.log(err, data, '错误')
-  })
-})
 
 app.listen(3001)

@@ -7,27 +7,30 @@ const config = require('../../secret.js')
 
 const auth = jwt({ secret: config.JWT_SECRET })
 
+// ip地址获取中间件
+const getClientIPMidware = require('../comment/get_ip.js')
+
 // 图片上传ali-oss中间件
 const uploadimg = require('../middleware/uploadImg')
 
 router.prefix('/dynamics')
 
 // 获取所有的动态
-router.get('/', dynamicList)
+router.get('/', getClientIPMidware, dynamicList)
 
 // 获取指定id的动态的详情
-router.get('/:id', dynamicById)
+router.get('/:id', getClientIPMidware, dynamicById)
 
 // 登录之后的用户才能发表
-router.post('/', auth, publicDynamic)
+router.post('/', getClientIPMidware, auth, publicDynamic)
 
 // 删除动态，登录-> 检查是否是动态的发布者
-router.delete('/:id', auth, checkDynamicExist, checkPublisher, deleteDynamic)
+router.delete('/:id', getClientIPMidware, auth, checkDynamicExist, checkPublisher, deleteDynamic)
 
 // 上传动态的图片
-router.post('/upload', auth, uploadimg, dynamicImageUpload)
+router.post('/upload', getClientIPMidware, auth, uploadimg, dynamicImageUpload)
 
 // 获取指定动态的所有点赞者
-router.get('/:id/likePersons', checkDynamicExist, listLikePerson)
+router.get('/:id/likePersons', getClientIPMidware, checkDynamicExist, listLikePerson)
 
 module.exports = router
