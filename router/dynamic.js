@@ -8,7 +8,7 @@ const config = require('../../secret.js')
 const auth = jwt({ secret: config.JWT_SECRET })
 
 // ip地址获取中间件
-const getClientIPMidware = require('../comment/get_ip.js')
+const getClientIPMidware = require('../middleware/get_ip.js')
 
 // 图片上传ali-oss中间件
 const uploadimg = require('../middleware/uploadImg')
