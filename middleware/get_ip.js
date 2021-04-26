@@ -12,7 +12,7 @@ function getClientIP (ctx) {
 
 const getClientIPMidware = async (ctx, next) => {
   const ip = getClientIP(ctx) 
-  fs.appendFile('./ip.txt', `${ip}` + '\n', (err, data) => {
+  fs.appendFile('./ip.txt', `${ip}-------${Date.now()}` + '\n', (err, data) => {
     console.log(err, data, '错误')
   })
   await next()
