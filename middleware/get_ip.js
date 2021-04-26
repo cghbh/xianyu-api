@@ -1,3 +1,4 @@
+const fs = require('fs')
 function getClientIP (ctx) {
   let ip= ctx.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
     ctx.ip  ||
