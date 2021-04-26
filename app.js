@@ -12,6 +12,8 @@ const parameter = require('koa-parameter')
 // 文件格式输出的中间件记录
 const { accessLogger, systemLogger } = require('./utils/log4.js')
 const app = new Koa()
+
+app.proxy = true
 // 控制生产环境下的错误堆栈输出显示
 app.use(error({
   postFormat: (e, { stack, ...rest }) => process.env.NODE_ENV === 'production' ? { ...rest } : { ...rest }
