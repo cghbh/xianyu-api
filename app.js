@@ -11,7 +11,6 @@ const error = require('koa-json-error')
 const parameter = require('koa-parameter')
 // 文件格式输出的中间件记录
 const { accessLogger, systemLogger } = require('./utils/log4.js')
-const { getClientIP } = require('./comment/get_ip.js')
 const app = new Koa()
 
 // 控制生产环境下的错误堆栈输出显示
